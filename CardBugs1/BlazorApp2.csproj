@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+
+		<!-- 7.8.11 animation works but NO two-way binding -->
+		<!--<PackageReference Include="BootstrapBlazor" Version="7.8.11" />-->
+
+		<!-- 7.9.1-beta02 animation no works but HAS two-way binding -->
+		<!--<PackageReference Include="BootstrapBlazor" Version="7.9.1-beta02" />-->
+
+		<!--7.9.1-beta03 animation no works but HAS two-way binding -->
+		<PackageReference Include="BootstrapBlazor" Version="7.9.1-beta03" />
+
+		<PackageReference Include="BootstrapBlazor.FontAwesome" Version="7.4.2" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.8" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.8" PrivateAssets="all" />
+	</ItemGroup>
+
+</Project>

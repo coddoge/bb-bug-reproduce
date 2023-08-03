@@ -1,0 +1,57 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+@code
+{
+    private bool _coll1;
+    private bool _coll2;
+    private bool _coll3;
+}
+
+Package version: @typeof(Card).Assembly.FullName
+
+<h1>Collapsing animation/binding problem</h1>
+<h5> when bind Collapsed cause animation effect lost? </h5>
+Collapsed: @_coll1
+<Card HeaderText="TryAniDurCollap" @bind-Collapsed="@_coll1" IsCollapsible>
+    <BodyTemplate>
+        <BootstrapInputGroup>
+            <Button Color="Color.Primary" Icon="fa-solid fa-font-awesome" Text="测试"></Button>
+        </BootstrapInputGroup>
+
+        <Card HeaderText="NestedCard Unexcpeted collapse to parent card" IsCollapsible class="mt-3">
+             <BodyTemplate>
+                 <BootstrapInputGroup>
+                     <Button Color="Color.Primary" Icon="fa-solid fa-font-awesome" Text="测试"></Button>
+                 </BootstrapInputGroup>
+             </BodyTemplate>
+         </Card>
+
+     </BodyTemplate>
+ </Card>
+
+ <h1>Not bind property, animation effect is ok</h1>
+
+ <Card HeaderText="TryAniDurCollap" IsCollapsible>
+    <BodyTemplate>
+        <BootstrapInputGroup>
+            <Button Color="Color.Primary" Icon="fa-solid fa-font-awesome" Text="测试"></Button>
+        </BootstrapInputGroup>
+
+        <Card HeaderText="NestedCard With Collapsible is OK when parent is not bind?" IsCollapsible class="mt-3">
+             <BodyTemplate>
+                 <BootstrapInputGroup>
+                     <Button Color="Color.Primary" Icon="fa-solid fa-font-awesome" Text="测试"></Button>
+                 </BootstrapInputGroup>
+             </BodyTemplate>
+         </Card>
+
+     </BodyTemplate>
+ </Card>
