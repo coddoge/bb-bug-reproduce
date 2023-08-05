@@ -1,0 +1,29 @@
+﻿@page "/"
+@inject MessageService MessageService
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, world!</h1>
+
+<p>Welcome to your new app.</p>
+
+Package version: @typeof(Message).Assembly.FullName
+
+<h1>Message Position Check</h1>
+
+<Message @ref="_message" Placement="Placement.RightEnd"></Message>
+
+<Button OnClick="ShowMessage">Try</Button>
+
+@code
+{
+    private Message? _message;
+
+    private void ShowMessage()
+    {
+        MessageService.Show(new MessageOption()
+        {
+            Content = "Position?"
+        });
+    }
+}
