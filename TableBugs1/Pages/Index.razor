@@ -1,0 +1,34 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+
+<h1>LineNo Unexpected after scroll</h1>
+
+@code
+{
+    private IReadOnlyCollection<DataItem> _items;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _items = Enumerable.Range(0, 100).Select(p => new DataItem { Date = DateTime.Now.AddSeconds(p - 50), Text = $"#{p}" }).ToArray();
+    }
+    
+    class DataItem
+    {
+        public DateTime Date { get; set; }
+        public string Text { get; set; }
+    }
+
+    private async Task<QueryData<DataItem>> DoQuery(QueryPageOptions options)
+    {
+        return new QueryData<DataItem>
+        {
+            Items = _items.Skip(options.StartIndex).Take(options.PageItems),
+            TotalCount = _items.Count
+        };
+    }
+}
+
+<div style="height: 500px"><Table OnQueryAsync="DoQuery" AutoGenerateColumns ShowLineNo LineNoText="#" IsBordered IsFixedHeader ScrollMode="ScrollMode.Virtual"></Table></div>
+
