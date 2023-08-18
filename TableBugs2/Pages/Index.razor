@@ -1,0 +1,40 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+
+<h1>Virtual Scroll + Filterable = BOOM?</h1>
+<i> How to correct deal with OnQueryAsync? </i>
+@code
+{
+    private IReadOnlyCollection<DataItem> _items;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _items = Enumerable.Range(0, 500).Select(p => new DataItem {  Text = $"#{p}" }).ToArray();
+    }
+    
+    class DataItem
+    {
+        public string Text { get; set; }
+    }
+
+    private async Task<QueryData<DataItem>> DoQuery(QueryPageOptions options)
+    {
+        
+        return new QueryData<DataItem>
+        {
+            Items = _items.Skip(options.StartIndex).Take(options.PageItems),
+            TotalCount = _items.Count
+        };
+    }
+}
+
+<div style="height: 500px">
+    <Table OnQueryAsync="DoQuery" ShowLineNo LineNoText="#" IsBordered IsFixedHeader ScrollMode="ScrollMode.Virtual">
+        <TableColumns>
+            <TableColumn TItem="DataItem" TType="string" Text="Text" @bind-Field="@context.Text" Filterable></TableColumn>
+        </TableColumns>
+    </Table>
+</div>
+
