@@ -22,25 +22,25 @@
         public int Num { get; set; }
     }
 
-    private async Task<QueryData<DataItem>> DoQuery(QueryPageOptions options)
+    private Task<QueryData<DataItem>> DoQuery(QueryPageOptions options)
     {
-        return new QueryData<DataItem>
+        var items = _items!.Where(options.Filters.GetFilterFunc<DataItem>());
+        var data = items.Skip(options.StartIndex).Take(options.PageItems);
+        var ret = new QueryData<DataItem>
         {
-            Items = _items!
-                .Where(options.Filters.GetFilterFunc<DataItem>())
-                .Skip(options.StartIndex)
-                .Take(options.PageItems)
-                .ToList(),
-            TotalCount = _items!.Count,
+            Items = data,
+            TotalCount = items.Count(),
+            IsFiltered = options.Filters.Any()
         };
+        return Task.FromResult(ret);
     }
 }
 
 <div style="height: 500px">
     <Table TItem="DataItem" OnQueryAsync="DoQuery"
-            ShowLineNo LineNoText="#"
-            ScrollMode="ScrollMode.Virtual"
-            IsBordered IsFixedHeader>
+           ShowLineNo LineNoText="#"
+           ScrollMode="ScrollMode.Virtual"
+           IsBordered IsFixedHeader>
         <TableColumns>
             <TableColumn Text="Text" @bind-Field="@context.Text" Filterable></TableColumn>
             <TableColumn Text="Num" @bind-Field="@context.Num" Filterable></TableColumn>
