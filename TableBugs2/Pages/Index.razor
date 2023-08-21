@@ -1,4 +1,6 @@
-﻿@page "/"
+@using BootstrapBlazor.Components;
+@using System.Diagnostics.CodeAnalysis;
+@page "/"
 
 <PageTitle>Index</PageTitle>
 
@@ -8,7 +10,7 @@
 
 @code
 {
-    private IReadOnlyCollection<DataItem> _items;
+    private IReadOnlyCollection<DataItem>? _items;
 
     protected override void OnInitialized()
     {
@@ -43,7 +45,7 @@
             IsBordered IsFixedHeader>
         <TableColumns>
             <TableColumn Text="Text" @bind-Field="@context.Text" Filterable></TableColumn>
-             <TableColumn Text="Num" @bind-Field="@context.Num" Filterable></TableColumn>
+            <TableColumn Text="Num" @bind-Field="@context.Num" Filterable></TableColumn>
          </TableColumns>
      </Table>
  </div>
