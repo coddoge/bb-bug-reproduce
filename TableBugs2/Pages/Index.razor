@@ -1,12 +1,10 @@
-@using BootstrapBlazor.Components;
-@using System.Diagnostics.CodeAnalysis;
 @page "/"
 
 <PageTitle>Index</PageTitle>
 
 <h1>Virtual Scroll + Filterable = BOOM?</h1>
 <h5>Package version: @(typeof(Table<>).Assembly.FullName)</h5>
-<i> How to correct deal with OnQueryAsync? </i>
+<i><s> How to correct deal with OnQueryAsync? </s></i>
 
 @code
 {
@@ -20,7 +18,7 @@
 
     class DataItem
     {
-        public string Text { get; set; }
+        public string? Text { get; set; }
         public int Num { get; set; }
     }
 
@@ -28,12 +26,12 @@
     {
         return new QueryData<DataItem>
         {
-            Items = _items
+            Items = _items!
                 .Where(options.Filters.GetFilterFunc<DataItem>())
                 .Skip(options.StartIndex)
                 .Take(options.PageItems)
                 .ToList(),
-            TotalCount = _items.Count,
+            TotalCount = _items!.Count,
         };
     }
 }
